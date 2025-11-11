@@ -30,7 +30,7 @@ export default function AddFoodPage() {
         formData.append("imageUrl", imageUrl.trim());
       }
 
-      const res = await fetch("http://localhost:5000/api/food/create", {
+      const res = await fetch("https://campuseats-backend-production.up.railway.app/api/food/create", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

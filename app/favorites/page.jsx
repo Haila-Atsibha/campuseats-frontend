@@ -13,7 +13,7 @@ export default function FavoritesPage() {
       if (!token) return setError("You must log in to view favorites.")
 
       try {
-        const res = await fetch("http://localhost:5000/api/favorites", {
+        const res = await fetch("https://campuseats-backend-production.up.railway.app/api/favorites", {
           headers: { Authorization: `Bearer ${token}` },
         })
         const data = await res.json()
@@ -86,7 +86,7 @@ export default function FavoritesPage() {
                 <img
                   src={
                     cafe.imageUrl
-                      ? `http://localhost:5000${cafe.imageUrl}`
+                      ? `https://campuseats-backend-production.up.railway.app${cafe.imageUrl}`
                       : "/default-cafe.png"
                   }
                   alt={`${cafe.name} image`}

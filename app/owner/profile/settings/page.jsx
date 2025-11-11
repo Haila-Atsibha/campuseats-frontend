@@ -25,7 +25,7 @@ export default function SettingsPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/user/change-password", {
+      const res = await fetch("https://campuseats-backend-production.up.railway.app/api/user/change-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

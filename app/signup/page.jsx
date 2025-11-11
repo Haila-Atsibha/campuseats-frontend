@@ -56,7 +56,7 @@ export default function SignupPage() {
       form.append("role", role)
       if (image) form.append("image", image)
 
-      const res = await fetch("http://localhost:5000/api/signup", {
+      const res = await fetch("https://campuseats-backend-production.up.railway.app/api/signup", {
         method: "POST",
         body: form,
       })

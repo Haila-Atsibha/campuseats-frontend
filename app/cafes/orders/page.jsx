@@ -10,7 +10,7 @@ export default function CafeOrdersPage() {
     async function fetchOrders() {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:5000/api/orders/cafe", {
+        const res = await fetch("https://campuseats-backend-production.up.railway.app/api/orders/cafe", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Failed to load orders");

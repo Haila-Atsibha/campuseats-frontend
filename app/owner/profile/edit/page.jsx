@@ -14,7 +14,7 @@ export default function EditProfilePage() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/user/me", {
+        const res = await fetch("https://campuseats-backend-production.up.railway.app/api/user/me", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -22,7 +22,7 @@ export default function EditProfilePage() {
         if (!res.ok) throw new Error("Failed to load user info")
         const data = await res.json()
         setForm({ name: data.name, email: data.email })
-        if (data.imageUrl) setPreview(`http://localhost:5000${data.imageUrl}`)
+        if (data.imageUrl) setPreview(`https://campuseats-backend-production.up.railway.app${data.imageUrl}`)
       } catch (err) {
         console.error(err)
       }
@@ -53,7 +53,7 @@ export default function EditProfilePage() {
       formData.append("email", form.email)
       if (profilePic) formData.append("image", profilePic)
 
-      const res = await fetch("http://localhost:5000/api/user/update", {
+      const res = await fetch("https://campuseats-backend-production.up.railway.app/api/user/update", {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

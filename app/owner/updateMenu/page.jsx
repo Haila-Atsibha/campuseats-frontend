@@ -26,7 +26,7 @@ export default function UpdateMenuPage() {
 
   async function fetchFoods(t) {
     try {
-      const res = await fetch(`http://localhost:5000/api/food/myfoods`, {
+      const res = await fetch(`https://campuseats-backend-production.up.railway.app/api/food/myfoods`, {
         headers: { Authorization: `Bearer ${t}` },
       });
       if (!res.ok) throw new Error("Failed to load foods");
@@ -61,7 +61,7 @@ export default function UpdateMenuPage() {
       formData.append("description", newFood.description);
       if (newFood.imageFile) formData.append("imageFile", newFood.imageFile); // match backend
 
-      const res = await fetch("http://localhost:5000/api/food/create", {
+      const res = await fetch("https://campuseats-backend-production.up.railway.app/api/food/create", {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
@@ -83,7 +83,7 @@ export default function UpdateMenuPage() {
   async function handleDelete(foodId) {
     if (!confirm("Are you sure you want to delete this food?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/food/delete/${foodId}`, {
+      const res = await fetch(`https://campuseats-backend-production.up.railway.app/api/food/delete/${foodId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -108,7 +108,7 @@ export default function UpdateMenuPage() {
       formData.append("description", description);
       if (imageFile) formData.append("imageFile", imageFile);
 
-      const res = await fetch(`http://localhost:5000/api/food/update/${id}`, {
+      const res = await fetch(`https://campuseats-backend-production.up.railway.app/api/food/update/${id}`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,

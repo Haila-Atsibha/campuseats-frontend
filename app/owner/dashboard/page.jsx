@@ -23,7 +23,7 @@ export default function OwnerHomePage() {
 
     async function fetchStats() {
       try {
-        const res = await fetch("http://localhost:5000/api/owner-orders/my-cafe-orders", {
+        const res = await fetch("https://campuseats-backend-production.up.railway.app/api/owner-orders/my-cafe-orders", {
           headers: { Authorization: `Bearer ${token}` },
         });
 

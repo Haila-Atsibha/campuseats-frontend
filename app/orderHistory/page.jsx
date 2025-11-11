@@ -11,7 +11,7 @@ export default function OrdersPage() {
       if (!token) return;
 
       try {
-        const res = await fetch("http://localhost:5000/api/order", {
+        const res = await fetch("https://campuseats-backend-production.up.railway.app/api/order", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

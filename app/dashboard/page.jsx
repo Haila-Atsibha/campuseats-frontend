@@ -17,7 +17,7 @@ function StarRating({ cafeId, currentRating, onRated }) {
     }
 
     try {
-      await fetch("http://localhost:5000/api/ratings", {
+      await fetch("https://campuseats-backend-production.up.railway.app/api/ratings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export default function StudentDashboard() {
   useEffect(() => {
     async function fetchCafes() {
       try {
-        const res = await fetch("http://localhost:5000/api/cafe");
+        const res = await fetch("https://campuseats-backend-production.up.railway.app/api/cafe");
         const data = await res.json();
         if (!Array.isArray(data)) throw new Error("Invalid data");
         setCafes(data);
@@ -84,7 +84,7 @@ export default function StudentDashboard() {
       if (!token) return;
 
       try {
-        const res = await fetch("http://localhost:5000/api/favorites", {
+        const res = await fetch("https://campuseats-backend-production.up.railway.app/api/favorites", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -109,7 +109,7 @@ export default function StudentDashboard() {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/favorites/${cafeId}`, {
+      const res = await fetch(`https://campuseats-backend-production.up.railway.app/api/favorites/${cafeId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -205,7 +205,7 @@ export default function StudentDashboard() {
                 <img
                   src={
                     cafe.imageUrl
-                      ? `http://localhost:5000${cafe.imageUrl}`
+                      ? `https://campuseats-backend-production.up.railway.app${cafe.imageUrl}`
                       : "/default-cafe.png"
                   }
                   alt={`${cafe.name} profile`}

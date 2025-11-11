@@ -13,7 +13,7 @@ export default function CartPage() {
     async function fetchCart() {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:5000/api/cart", {
+        const res = await fetch("https://campuseats-backend-production.up.railway.app/api/cart", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -37,7 +37,7 @@ export default function CartPage() {
   const removeItem = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await fetch(`http://localhost:5000/api/cart/remove/${id}`, {
+      await fetch(`https://campuseats-backend-production.up.railway.app/api/cart/remove/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -56,7 +56,7 @@ export default function CartPage() {
   const checkout = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/order/checkout", {
+      const res = await fetch("https://campuseats-backend-production.up.railway.app/api/order/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

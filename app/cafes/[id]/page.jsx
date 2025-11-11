@@ -22,7 +22,7 @@ export default function CafeMenuPage() {
   useEffect(() => {
     async function fetchMenu() {
       try {
-        const res = await fetch(`http://localhost:5000/api/cafe/${id}`);
+        const res = await fetch(`campuseats-backend-production.up.railway.app/api/cafe/${id}`);
         if (!res.ok) throw new Error("Failed to load menu");
         const data = await res.json();
         setCafe(data);
@@ -52,7 +52,7 @@ export default function CafeMenuPage() {
     setMessage("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/cart/add", {
+      const res = await fetch("https://campuseats-backend-production.up.railway.app/api/cart/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

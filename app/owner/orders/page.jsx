@@ -21,7 +21,7 @@ export default function OwnerOrdersPage() {
 
     async function fetchOrders() {
       try {
-        const res = await fetch("http://localhost:5000/api/owner-orders/my-cafe-orders", {
+        const res = await fetch("https://campuseats-backend-production.up.railway.app/api/owner-orders/my-cafe-orders", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -44,7 +44,7 @@ export default function OwnerOrdersPage() {
   // ✅ Mark order as READY
   const markReady = async (orderId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/order-status/ready/${orderId}`, {
+      const res = await fetch(`https://campuseats-backend-production.up.railway.app/api/order-status/ready/${orderId}`, {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -64,7 +64,7 @@ export default function OwnerOrdersPage() {
   // ✅ Undo READY status
   const undoReady = async (orderId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/order-status/undo/${orderId}`, {
+      const res = await fetch(`https://campuseats-backend-production.up.railway.app/api/order-status/undo/${orderId}`, {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
       });

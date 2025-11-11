@@ -15,7 +15,7 @@ export default function ProfilePage() {
           return
         }
 
-        const res = await fetch("http://localhost:5000/api/user/me", {
+        const res = await fetch("https://campuseats-backend-production.up.railway.app/api/user/me", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
