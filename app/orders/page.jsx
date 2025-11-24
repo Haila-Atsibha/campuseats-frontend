@@ -4,24 +4,45 @@ import { useEffect, useState } from "react";
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const token = localStorage.getItem("token");
-
-  const fetchOrders = async () => {
-    try {
-      const res = await fetch("https://campuseats-backend-production.up.railway.app/api/orders", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
-      setOrders(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const controller = new AbortController();
+    const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
+    if (!token) {
+      setLoading(false);
+      return () => controller.abort();
+    }
+
+    const fetchOrders = async () => {
+      try {
+        const res = await fetch(
+          "https://campuseats-backend-production.up.railway.app/api/orders",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            signal: controller.signal,
+          }
+        );
+
+        if (!res.ok) {
+          console.error("Failed to fetch orders", res.status, res.statusText);
+          setOrders([]);
+          return;
+        }
+
+        const data = await res.json();
+        setOrders(Array.isArray(data) ? data : []);
+      } catch (err) {
+        if (err.name === "AbortError") return;
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchOrders();
+
+    return () => controller.abort();
   }, []);
 
   if (loading) return <div>Loading orders...</div>;
@@ -50,13 +71,17 @@ export default function OrdersPage() {
               </span>
             </div>
             <ul className="mb-2">
-              {order.items.map((item) => (
-                <li key={item.id}>
-                  {item.food.name} x {item.quantity} - ${item.price}
+              {order.items?.map((item) => (
+                <li key={item.id ?? `${order.id}-${item.food?.id}`}>
+                  {item.food?.name ?? "Unknown"} x {item.quantity} - ${
+                    typeof item.price === "number" ? item.price.toFixed(2) : item.price
+                  }
                 </li>
               ))}
             </ul>
-            <div className="font-semibold">Total: ${order.total}</div>
+            <div className="font-semibold">Total: ${
+              typeof order.total === "number" ? order.total.toFixed(2) : order.total
+            }</div>
             <div className="text-sm text-gray-500">
               Placed at: {new Date(order.createdAt).toLocaleString()}
             </div>
