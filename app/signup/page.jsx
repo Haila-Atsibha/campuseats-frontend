@@ -1,10 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useSearchParams, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 export default function SignupPage() {
-  const searchParams = useSearchParams()
   const router = useRouter()
   const [role, setRole] = useState("CUSTOMER")
   const [formData, setFormData] = useState({
@@ -18,12 +17,14 @@ export default function SignupPage() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
-  // ✅ Get role from URL
+  // ✅ Get role from URL on client side (avoid useSearchParams to prevent CSR bailout)
   useEffect(() => {
-    const r = searchParams.get("role")
+    if (typeof window === "undefined") return
+    const params = new URLSearchParams(window.location.search)
+    const r = params.get("role")
     if (r === "CAFE_OWNER") setRole("CAFE_OWNER")
     else setRole("CUSTOMER")
-  }, [searchParams])
+  }, [])
 
   // ✅ Handle text input change
   const handleChange = e => {
